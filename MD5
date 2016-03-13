@@ -1,4 +1,4 @@
-7028bbb88685a8422cc773badf3d089c *DESCRIPTION
+1d5aae47c1e78a1e6d11f6cae2b95121 *DESCRIPTION
 e0d6048572c0c6470505f29ecd038c11 *NAMESPACE
 580c8eb3ccc587ac0f874d72d8c265a0 *R/IS.R
 e1bdcfe9cd241cb7cd1fc69b6a7bbd7b *R/RcppExports.R
@@ -15,8 +15,8 @@ a276b47d7242ab0f8da05538edd396a2 *R/optimization.R
 2f0d9f31ee9455a7e9fbd37cc767ff51 *R/splitframe.R
 75ac5a501388c90157743f4539108b03 *R/subformula.R
 e1c33d0200d11e8f8431d20214844bba *R/utility.R
-b697634f925459ec58d26365ad50343a *README.md
-b4515aebce10e49c84270b4b6d4c032c *build/vignette.rds
+a7e1bd973f9dee7983c33ed80c5edcab *README.md
+e35c826465261e14f6e3dc81bab42e66 *build/vignette.rds
 285f97f3a32e1ae3426449c3e6826929 *data/three_level.rda
 62426bbbdd2a2fbaf1d882a2f78c4d42 *data/two_level.rda
 3e67449defaf4158a2a5e1f1f43314c0 *inst/RcppR6.yml
@@ -25,7 +25,7 @@ b4515aebce10e49c84270b4b6d4c032c *build/vignette.rds
 dd85709f3a1d38fc5472331b08c24520 *inst/continuous_beliefs.yml
 1e0c87cbedd507e3c29334d29d288134 *inst/doc/glmmsr-vignette.R
 cb5fd0214f6e6f3f277ec8dc2a1ae16b *inst/doc/glmmsr-vignette.Rmd
-902aa8f7350fae1f597d8e41931e03da *inst/doc/glmmsr-vignette.pdf
+c438ec43d164a9e2dc9d6c3420d4bfc8 *inst/doc/glmmsr-vignette.pdf
 719b18b12344e3573fcc74e9f681b334 *inst/examples/chameleons.R
 ee35e7fe41155b85c35619b8c8de694c *inst/examples/three_level.R
 7b5235467a34b4d102a3e2601a754667 *inst/examples/two_level.R
@@ -41,7 +41,7 @@ fe075c8aac581cf67f9e3038d2258bfa *inst/include/Family.h
 45d0938166e1d73a4a89af2ee6220c4f *inst/include/FamilyBase.h
 6e3bbdd86ee1942c41c753f9d0d972b0 *inst/include/FamilyGivenMean.h
 4a861179d121725d00887fdd3eac8497 *inst/include/GLMMBelief.h
-c158ca6b7d90eefaec4611181219f97a *inst/include/Graph.h
+bdd7655ae080232f42930d87db100c20 *inst/include/Graph.h
 5395c3f4ca83ed1781038eedc485fe78 *inst/include/IntegratedFunction.h
 3dc2bcf1b6b1a02536e6b14e631e0938 *inst/include/Link.h
 91fe6589c642fa512a492dd703edd478 *inst/include/LinkBase.h
@@ -88,7 +88,7 @@ a1a2d3208f8107b0cba33c2aea3b9048 *man/summaryGlmmFit.Rd
 f03261bd76f918d9820f1e054db04c4c *man/three_level.Rd
 765c76f449b1e5bc03332e0ac817f505 *man/two_level.Rd
 695cfb1769344749467cbb96d3784986 *src/Basis.cpp
-623f6e7fd1cb12cbd97a2af3b586bbbb *src/BasisLevel.cpp
+c1381433869e779cd2c87261d260246a *src/BasisLevel.cpp
 3a2afcb89ab899ac4056b8180ad55cfa *src/BeliefBase.cpp
 ecb369e0fbc678e3e7b19e62b9df6a60 *src/Binomial.cpp
 7bca770c8ad185146f11ed0acec94e4d *src/ClusterGraph.cpp
@@ -98,11 +98,11 @@ ecb369e0fbc678e3e7b19e62b9df6a60 *src/Binomial.cpp
 21a512be4fa4195beee9dfbb64c98416 *src/FamilyBase.cpp
 c89e731c803f9da20f7bcb891b1016cd *src/FamilyGivenMean.cpp
 9e37f61aaeb843efc7846d2113908160 *src/GLMMBelief.cpp
-65cf449d36a5384dd788ff19073b22d2 *src/Graph.cpp
+8f281a93ecc28e1453e9872af5dd2504 *src/Graph.cpp
 048011e941670c31da5dddb88fc9cef4 *src/IntegratedFunction.cpp
 77c16d14d33397831202a988c9d10fc2 *src/Link.cpp
 17ecb390832d397bd69bb4e9356c3cf7 *src/LinkBase.cpp
-d559b8a3a3de4254d5f453b104426555 *src/LogitLink.cpp
+763b1c0c21badac8f0ed08f8fbb84b17 *src/LogitLink.cpp
 1037da47fba6c5ff64c0d0caa72b449b *src/Makevars
 9e78b15c74395064a671095554e8a999 *src/MixedContinuousBelief.cpp
 c62156dd903de0a4f57138f8b21ab127 *src/MixedContinuousBeliefVector.cpp
@@ -112,7 +112,7 @@ c1a2e295375f83a75b2c3b1cee31bf33 *src/Parameters.cpp
 9020586ad45e0507e872e66cd5697c09 *src/Point.cpp
 86711597bce563ae9762af443dcddef8 *src/ProbitLink.cpp
 b73a564d8aa2456399985b4dfd581ec8 *src/Quadratic.cpp
-1158a7876eeef812901790ba09305235 *src/QuadratureRule.cpp
+fc00c1368a10108c9c6ac757470b4a77 *src/QuadratureRule.cpp
 697764ebb7cf7bb7f26a0801652e9c42 *src/RcppExports.cpp
 43b1e5be0e8955781b32f1037cee781a *src/RcppR6.cpp
 c12deaafa2c3e168ded471f62af0cb94 *src/SparseBelief.cpp
