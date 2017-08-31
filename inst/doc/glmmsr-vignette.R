@@ -5,8 +5,13 @@
 ## ----two_level Laplace---------------------------------------------------
 library(glmmsr)
 mod_Laplace <- glmm(response ~ covariate + (1 | cluster), data = two_level,
-                     family = binomial, method = "Laplace")
+                    family = binomial, method = "Laplace")
 mod_Laplace
+
+## ------------------------------------------------------------------------
+mod_Laplace <- glmm(response ~ covariate + (1 | cluster), data = two_level,
+                    family = binomial, method = "Laplace",
+                    control = list(check_Laplace = TRUE))
 
 ## ----two_level_AGQ-------------------------------------------------------
 glmm(response ~ covariate + (1 | cluster), data = two_level,

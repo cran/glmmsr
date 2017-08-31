@@ -13,13 +13,13 @@ The interface of `glmmsr` allows easy fitting of pairwise comparison and many ot
 Installing `glmmsr`
 -------------------
 
-You can install version 0.1.0 of `glmmsr` from CRAN with
+You can `glmmsr` from CRAN with
 
 ``` r
 install.packages("glmmsr")
 ```
 
-You can install this development version of `glmmsr` by running
+You can install the development version of `glmmsr` from GitHub by running
 
 ``` r
 devtools::install_github("heogden/glmmsr")
@@ -34,4 +34,4 @@ To view the vignette for `glmmsr`, use
 browseVignettes("glmmsr")
 ```
 
-or see [here](https://cran.r-project.org/web/packages/glmmsr/vignettes/glmmsr-vignette.pdf)
+or see [here](https://CRAN.R-project.org/package=glmmsr/vignettes/glmmsr-vignette.pdf)

@@ -67,13 +67,13 @@ choice, to highlight to the user that some approximation must be used, and
 that the choice of this approximation might affect the resulting inference.
 
 ## The Laplace approximation (`method = "Laplace"`)
-The Laplace approximation works by approximating the integrand $g(\mathbf{u}; \theta)$
-by a function proportional to a Gaussian density.
+The (first-order) Laplace approximation works by approximating the integrand 
+$g(\mathbf{u}; \theta)$ by a function proportional to a Gaussian density.
 
 ```{r two_level Laplace}
 library(glmmsr)
 mod_Laplace <- glmm(response ~ covariate + (1 | cluster), data = two_level,
-                     family = binomial, method = "Laplace")
+                    family = binomial, method = "Laplace")
 mod_Laplace
 ```
 This gives some estimates of the parameters, but we do not know if these
@@ -84,6 +84,19 @@ of observations per random effect, the Laplace approximation may be a poor
 approximation to the likelihood. This is certainly the case here, since
 we only have two observations per cluster, and we would like to try
 using a more accurate approximation to the likelihood.
+
+An experimental check of the impact of the error in the Laplace approximation
+may be switched on by setting `check_Laplace = TRUE` in the `control` options:
+```{r}
+mod_Laplace <- glmm(response ~ covariate + (1 | cluster), data = two_level,
+                    family = binomial, method = "Laplace",
+                    control = list(check_Laplace = TRUE))
+```
+As the warning indicates that the Laplace approximation may be unreliable in
+this case, we should try to use a more accurate approximation to the 
+likelihood. This check of the quality of the first-order Laplace 
+approximation is likely to be switched on by default in future versions of
+`glmmsr`.
 
 ## Adaptive Gaussian quadrature (`method = "AGQ"`)
 For a two-level model, where each observation is contained within

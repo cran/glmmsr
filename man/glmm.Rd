@@ -10,7 +10,7 @@ glmm(formula, subformula = NULL, data = NULL, family = gaussian,
 }
 \arguments{
 \item{formula}{a two-sided linear formula object describing both the
-    fixed-effects and fixed-effects part of the model, with the response
+    fixed-effects and random-effects part of the model, with the response
     on the left of a \code{~} operator and the terms, separated by
     \code{+} operators, on the right.  Random-effects terms are
     distinguished by vertical bars (\code{"|"}) separating expressions
@@ -69,6 +69,16 @@ The \code{control} argument is a list, used to specify further
   Only used if \code{method = "SR"}. Defaults to 3.}
   \item{\code{nIS}}{the number of samples to use for importance sampling.
   Only used if \code{method = "IS"}. Defaults to 1000.}
+  \item{\code{order}}{the order of Laplace approxiation.
+  only used if \code{method = "Laplace"}. Defaults to 1.}
+  \item{\code{check_Laplace}}{should quality of first-order Laplace
+  approximation be checked? Only used  if \code{method = "Laplace"}
+  and \code{order = 1}. Defaults to TRUE.}
+  \item{\code{divergence_threshold}}{if \code{check_Laplace = TRUE},
+  warn about quality of inference using the first-order Laplace
+  approximation if measure of divergence from inference with
+  second-order Laplace approximation exceeds \code{divergence_threshold}.
+  Defaults to 0.1.}
  }
 }
 \examples{
@@ -93,4 +103,3 @@ The \code{control} argument is a list, used to specify further
 # the estimates of the random effects standard deviations
 # are larger than those using the Laplace approximation
 }
-

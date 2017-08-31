@@ -27,6 +27,16 @@
 #'   Only used if \code{method = "SR"}. Defaults to 3.}
 #'   \item{\code{nIS}}{the number of samples to use for importance sampling.
 #'   Only used if \code{method = "IS"}. Defaults to 1000.}
+#'   \item{\code{order}}{the order of Laplace approxiation.
+#'   only used if \code{method = "Laplace"}. Defaults to 1.}
+#'   \item{\code{check_Laplace}}{should quality of first-order Laplace
+#'   approximation be checked? Only used  if \code{method = "Laplace"}
+#'   and \code{order = 1}. Defaults to TRUE.}
+#'   \item{\code{divergence_threshold}}{if \code{check_Laplace = TRUE},
+#'   warn about quality of inference using the first-order Laplace
+#'   approximation if measure of divergence from inference with
+#'   second-order Laplace approximation exceeds \code{divergence_threshold}.
+#'   Defaults to 0.1.}
 #'  }
 #' @return An object of the class \code{glmmFit}
 #' @example inst/examples/three_level.R
@@ -42,17 +52,30 @@ glmm <- function(formula, subformula = NULL, data = NULL, family = gaussian,
                            family = family, weights = weights, offset = offset)
 
   if(has_reTrms(modfr)) {
-    lfun <- find_lfun_glmm_internal(modfr, method = method, control = con)
+    devfun_laplace_1 <- find_devfun_laplace_1(modfr)
+    lfun <- find_lfun_glmm_internal(modfr, method = method, control = con,
+                                    devfun_laplace_1 = devfun_laplace_1)
 
     p_beta <- ncol(modfr$X)
     p_theta <- length(modfr$reTrms$theta)
     opt <- optimize_glmm(lfun, p_beta = p_beta, p_theta = p_theta,
                          prev_fit = prev_fit, verbose = verbose)
+    if(con$check_Laplace) {
+      opt$laplace_divergence <- find_laplace_divergence(opt, modfr, devfun_laplace_1)
+      if(opt$laplace_divergence > con$divergence_threshold)
+        warning("Inference using the first-order Laplace approximation may be unreliable in this case",
+                call. = FALSE)
+    }
     if(all(modfr$reTrms$lower == 0)) {
       opt$estim[1:p_theta] <- abs(opt$estim[1:p_theta])
+      if(any(opt$estim[1:p_theta] > 4.9)) {
+        opt$Sigma <- matrix(NA, nrow = length(opt$estim), ncol = length(opt$estim))
+        warning("The approximate MLE might not be finite", call. = FALSE)
+      }
       result <- glmmFit(list(estim = opt$estim, Sigma = opt$Sigma,
                              lfun = lfun, modfr = modfr,
-                             method = method, control = con))
+                             method = method, control = con,
+                             laplace_divergence = opt$laplace_divergence))
     }else{
       warning("proper print and summary method not yet implemented ",
               "for correlated random effects")
