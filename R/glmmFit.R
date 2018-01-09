@@ -168,7 +168,7 @@ coef_random.glmmFit <- function(x) {
 
   names_theta <- unlist(unname(x$modfr$reTrms$cnms))
   estim_random <- x$estim[1:p_theta]
-  names(estim_random) <- names_theta
+  names(estim_random) <- paste("RE", names_theta, sep = "")
 
   estim_random
 }
@@ -186,7 +186,30 @@ coef_fixed.glmmFit <- function(x) {
   estim_fixed
 }
 
+#' Extract Model Coefficients for a glmmFit object
+#'
+#' @param object glmmFit object
+#' @param ... ignored
+#' @return A names vector of model coefficients
+#' @method coef glmmFit
+#' @keywords internal
+#' @export
+coef.glmmFit <- function(object, ...) {
+  c(coef_random.glmmFit(object), coef_fixed.glmmFit(object))
+}
 
-coef.glmmFit <- function(x) {
-  list(fixed = coef_fixed.glmmFit(x), random = coef_random.glmmFit(x))
+#' Calculate Variance-Covariance Matrix for a glmmFit object
+#'
+#' @param object glmmFit object
+#' @param ... ignored
+#' @return A matrix of the estimated covariances between the parameter estimates
+#' @method vcov glmmFit
+#' @keywords internal
+#' @export
+vcov.glmmFit <- function(object, ...) {
+  par_names <- names(coef.glmmFit(object))
+  covmat <- object$Sigma
+  rownames(covmat) <- par_names
+  colnames(covmat) <- par_names
+  covmat
 }
