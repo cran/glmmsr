@@ -21,6 +21,12 @@ test_that("Laplace order handled correctly", {
                     verbose = 0),
                "order-3 Laplace approximation not yet implemented")
 
+  expect_error(glmm(response ~ covariate + (1 | cluster) + (1 | group),
+                    data = three_level, family = binomial("probit"),
+                    method = "Laplace",
+                    control = list(order = 2),
+                    verbose = 0),
+               "order-2 Laplace approximation not yet implemented for non-canonical link functions")
 })
 
 test_that("First step of approx Fisher scoring with Laplace-2 moves in right direction", {

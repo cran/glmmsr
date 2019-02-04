@@ -38,27 +38,30 @@ mod_3_SR_4 <- glmm(response ~ covariate + (1 | cluster) + (1 | group),
                    data = three_level, family = binomial, method = "SR",
                    control = list(nSL = 4), prev_fit = mod_3_SR)
 
-## ----salamander_data-----------------------------------------------------
-data(salamander, package = "hglm.data")
+## ----check_mdhglm, echo = FALSE------------------------------------------
+mdhglm_avail <- requireNamespace("mdhglm", quietly = TRUE)
 
-## ----salamander_Laplace--------------------------------------------------
-mod_sal_Laplace <- glmm(Mate ~ 0 + Cross + (1 | Male) + (1 | Female),
+## ----salamander_data, eval = mdhglm_avail--------------------------------
+data(salamander, package = "mdhglm")
+
+## ----salamander_Laplace, eval = mdhglm_avail-----------------------------
+mod_sal_Laplace <- glmm(Mate ~ 0 + TypeM:TypeF + (1 | Male) + (1 | Female),
                         family = binomial, data = salamander, method = "Laplace")
 mod_sal_Laplace
 
 ## ----salamander_SR_2, eval = FALSE---------------------------------------
-#  mod_sal_SR_2 <- glmm(Mate ~ 0 + Cross + (1 | Male) + (1 | Female),
+#  mod_sal_SR_2 <- glmm(Mate ~ 0 + TypeM:TypeF + (1 | Male) + (1 | Female),
 #                       family = binomial, data = salamander, method = "SR",
 #                       control = list(nSL = 2), prev_fit = mod_sal_Laplace)
 
-## ----salamander_SR_3, error = TRUE---------------------------------------
-mod_sal_SR_3 <- glmm(Mate ~ 0 + Cross + (1 | Male) + (1 | Female),
+## ----salamander_SR_3, eval = mdhglm_avail, error = TRUE------------------
+mod_sal_SR_3 <- glmm(Mate ~ 0 + TypeM:TypeF + (1 | Male) + (1 | Female),
                      family = binomial, data = salamander, method = "SR", 
                      control = list(nSL = 3))
 
-## ----salamander_IS_1000--------------------------------------------------
+## ----salamander_IS_1000, eval = mdhglm_avail-----------------------------
 set.seed(1)
-mod_sal_IS_1000 <- glmm(Mate ~ 0 + Cross + (1 | Male) + (1 | Female),
+mod_sal_IS_1000 <- glmm(Mate ~ 0 + TypeM:TypeF + (1 | Male) + (1 | Female),
                           family = binomial, data = salamander,
                           method = "IS", control = list(nIS = 1000),
                           prev_fit = mod_sal_Laplace)
@@ -116,15 +119,15 @@ for(i in 1:4) {
 }
 legend("bottomright", legend = paste("nSL =", 0:4), col = 1:5, lty = 1, bty = "n")
 
-## ----salamander_equal_ids------------------------------------------------
+## ----salamander_equal_ids, eval = mdhglm_avail---------------------------
 female_id <- paste("F", salamander$Female, sep = "")
 male_id <- paste("M", salamander$Male, sep = "")
 ids <- unique(c(female_id, male_id))
 salamander$female_id <- factor(female_id, levels = ids)
 salamander$male_id <- factor(male_id, levels = ids)
 
-## ----salamander_equal----------------------------------------------------
-mod_sal_equal <- glmm(Mate ~ 0 + Cross + Sub(propen[female_id] + propen[male_id]),
+## ----salamander_equal, eval = mdhglm_avail-------------------------------
+mod_sal_equal <- glmm(Mate ~ 0 + TypeM:TypeF + Sub(propen[female_id] + propen[male_id]),
                       propen[sal] ~ 0 + (1 | sal), family = binomial, 
                       data = salamander, method = "Laplace")
 mod_sal_equal
